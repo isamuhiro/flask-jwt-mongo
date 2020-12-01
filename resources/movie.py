@@ -1,4 +1,5 @@
 from flask import Response, request
+from flask import jsonify
 from flask_restful import Resource
 from database.models import Movie
 from flask_jwt_extended import jwt_required
@@ -6,8 +7,8 @@ from flask_jwt_extended import jwt_required
 
 class MoviesApi(Resource):
     def get(self):
-        movies = Movie.objects().to_json()
-        return Response(movies, mimetype="application/json", status=200)
+        movies = Movie.objects()
+        return jsonify(movies)
 
     @jwt_required
     def post(self):
@@ -30,5 +31,5 @@ class MovieApi(Resource):
         return '', 200
 
     def get(self, id):
-        movies = Movie.objects.get(id=id).to_json()
-        return Response(movies, mimetype="application/json", status=200)
+        movies = Movie.objects.get(id=id)
+        return jsonify(movies)

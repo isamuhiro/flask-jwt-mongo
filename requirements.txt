@@ -35,6 +35,7 @@ PyJWT==1.7.1
 pymongo==3.11.0
 pyparsing==2.4.6
 python-dateutil==2.8.1
+python-dotenv==0.15.0
 pytoml==0.1.21
 pytz==2020.1
 requests==2.22.0

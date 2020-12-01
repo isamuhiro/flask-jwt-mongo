@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from database.db import initialize_db
 from flask_restful import Api
@@ -7,15 +8,13 @@ from flask_jwt_extended import JWTManager
 from settings import load_dotenv
 
 app = Flask(__name__)
-app.config.from_envvar('ENV_FILE_LOCATION')
+app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
+app.config['MONGODB_SETTINGS'] = { 'host': os.getenv("DB_HOST") }
 
 api = Api(app)
 bcript = Bcrypt(app)
 jwt = JWTManager(app)
 
-app.config['MONGODB_SETTINGS'] = {
-    'host': 'mongodb://localhost/movie-bag'
-}
 
 initialize_db(app)
 initialize_routes(api)

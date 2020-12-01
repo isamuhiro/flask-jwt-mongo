@@ -1,6 +1,5 @@
-from flask import request, Response, jsonify
+from flask import request, jsonify
 from flask_jwt_extended import create_access_token
-from flask_mongoengine import json
 from mongoengine.errors import NotUniqueError, ValidationError
 from database.models import User
 from flask_restful import Resource
@@ -15,7 +14,7 @@ class SignupAPI(Resource):
             user.validate()
             user.hash_password()
             user.save()
-            return Response(user.to_json(), mimetype="application/json", status=200)
+            return jsonify(user)
 
         except NotUniqueError as e:
             return "User already exists!", 409
